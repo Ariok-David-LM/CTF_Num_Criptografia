@@ -25,6 +25,15 @@ const signup = async (req, res) => {
   }
 }
 
+/*esta es la funcion del POST para registrar un usuario
+aqui recibira los datos que se escribieron en el formulario
+estos datos estaran en req.body, si los datos son correctos
+haga el registro en la bd
+*/
+const createUser = async (req, res) => {
+  res.redirect('/signin')
+}
+
 //Simulacion Inicio de sesion
 const simulInicio = async (req, res) => {
   req.session.user = "User1"
@@ -42,5 +51,6 @@ export {
   signin,
   signup,
   simulInicio,
-  simulCerrar
+  simulCerrar,
+  createUser
 }
