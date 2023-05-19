@@ -1,7 +1,7 @@
 //Pagina Inicio
 const home = async (req, res) => {
   if (req.session.user && req.session.in) {
-    res.render('home', {flag: 'flag{dgbfggdsggfd}'})
+    res.render('home')
   } else {
     res.redirect('/signin')
   }
@@ -10,9 +10,9 @@ const home = async (req, res) => {
 //Sign In
 const signin = async (req, res) => {
   if (req.session.user && req.session.in) {
-    res.redirect('/signin', {noti: "error datos incorrectos"})
+    res.redirect('/signin')
   } else {
-    res.render('signin', {pagina: 'Sign In'})
+    res.render('signin')
   }
 }
 
@@ -23,6 +23,15 @@ const signup = async (req, res) => {
   } else {
     res.render('signup')
   }
+}
+
+/*esta es la funcion del POST para registrar un usuario
+aqui recibira los datos que se escribieron en el formulario
+estos datos estaran en req.body, si los datos son correctos
+haga el registro en la bd
+*/
+const createUser = async (req, res) => {
+  res.redirect('/signin')
 }
 
 //Simulacion Inicio de sesion
@@ -42,5 +51,6 @@ export {
   signin,
   signup,
   simulInicio,
-  simulCerrar
+  simulCerrar,
+  createUser
 }

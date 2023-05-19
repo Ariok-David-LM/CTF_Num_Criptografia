@@ -1,39 +1,6 @@
-doctype html
-html(lang='en')
-  head
-    meta(charset='UTF-8')
-    meta(http-equiv='X-UA-Compatible', content='IE=edge')
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    title interface
-    link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css', rel='stylesheet', integrity='sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ', crossorigin='anonymous')
-    link(rel='stylesheet', href='css/style.css')
-  body
-    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
-      .container-fluid
-        a.navbar-brand(href='#') Navbar
-        button.navbar-toggler(type='button', data-bs-toggle='collapse', data-bs-target='#navbarNavAltMarkup', aria-controls='navbarNavAltMarkup', aria-expanded='false', aria-label='Toggle navigation')
-          span.navbar-toggler-icon
-        #navbarNavAltMarkup.collapse.navbar-collapse
-          .navbar-nav.ms-auto
-            form
-              a.nav-link(href='index.html') Home
-            a.nav-link(href='#') Adios
-    .container.my-3
-      .row
-        .col-sm-12.col-md-4.col-lg-4.col-xl-4.py-4.bg-white
-          h2.centrado Formulario
-          form
-            .mb-3
-              label.form-label(for='nombre') Nombre
-              input#nombre.form-control(type='text', placeholder='name')
-            .mb-3
-              label.form-label(for='correo') correo
-              input#correo.form-control(type='text',placeholder='Ingrese el correo' )
-            .mb-3
-              label.form-label(for='Contraseña') Contraseña
-              input#contrasena.form-control(placeholder='Ingrese la contraseña',type='text')
-            .d-grid.gap-2
-            a.btn.btn-outline-success(href='/iniSimulacion', role='button') Ingresar
-            a.btn.btn-outline-danger(href='/signin', role='button') Ya tengo una cuenta
-          
-    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js', integrity='sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ', crossorigin='anonymous')
+extends ./layout/signinIndex.pug
+block content
+  h1 Aqui va el registro para crear cuenta 
+  a(href="/signin") ya tengo cuenta 
+
+  
