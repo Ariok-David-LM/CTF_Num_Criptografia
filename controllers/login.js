@@ -34,6 +34,13 @@ const createUser = async (req, res) => {
   res.redirect('/signin')
 }
 
+/*Funcion para iniciar sesion
+traer todos los campos que ingreso el usuario (correo y contraseña)
+y verificar si existen en la bd*/
+const iniSesion  = async (req, res) => {
+  res.redirect('/signin')
+}
+
 //Simulacion Inicio de sesion
 const simulInicio = async (req, res) => {
   req.session.user = "User1"
@@ -52,5 +59,6 @@ export {
   signup,
   simulInicio,
   simulCerrar,
-  createUser
+  createUser,
+  iniSesion
 }
