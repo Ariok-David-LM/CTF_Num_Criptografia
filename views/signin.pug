@@ -21,23 +21,14 @@ html(lang='en')
     .container.my-3
       .row
         .col-sm-12.col-md-4.col-lg-4.col-xl-4.py-4.bg-white
-          h2.centrado Formulario
-          form
-            .mb-3
-              label.form-label(for='nombre') Nombre
-              input#nombre.form-control(type='text', placeholder='name')
-            .mb-3
-              label.form-label(for='correo') correo
-              textarea#correo.form-control(placeholder='Ingrese el correo', autofocus='', rows='3')
-            .mb-3
-              label.form-label(for='Contraseña') Contraseña
-              textarea#contrasena.form-control(placeholder='Ingrese la contraseña', autofocus='', rows='3')
-            .mb-3
-              label.form-label(for='Fecha') Fecha
-              textarea#fecha.form-control(placeholder='Ingrese la fecha', autofocus='', rows='3')
-            .d-grid.gap-2
-              button.btn.btn-outline-success(type='button') Guardar
-              button.btn.btn-outline-danger(type='button') Borrar
-        .col-sm-12.col-md-4.col-lg-4.col-xl-4.py-4.bg-white
+          h2.centrado Pagina principal
+          
+        h1 Aqui va el inicio de sesion 
+        a(href="/iniSimulacion") iniciar sesion
+        a(href="/signup") crear cuenta
+
+        .d-grid.gap-2
+            a.btn.btn-outline-success(href='/iniSimulacion', role='button') Ingresar
+            a.btn.btn-outline-danger(href='/signup', role='button') Ya tengo una cuenta
           
     script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js', integrity='sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ', crossorigin='anonymous')
