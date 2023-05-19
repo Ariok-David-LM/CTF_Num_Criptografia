@@ -16,22 +16,18 @@ html(lang='en')
         #navbarNavAltMarkup.collapse.navbar-collapse
           .navbar-nav.ms-auto
             form
-              a.nav-link(href='index.html') Home
-            a.nav-link(href='#') Adios
+             
     .container.my-3
       .row
         .col-sm-12.col-md-4.col-lg-4.col-xl-4.py-4.bg-white
           h2.centrado Crear Cuenta
           form
             .mb-3
-              label.form-label(for='nombre') Nombre
-              input#nombre.form-control(type='text', placeholder='name')
-            .mb-3
               label.form-label(for='correo') correo
-              textarea#correo.form-control(placeholder='Ingrese el correo', autofocus='', rows='3')
+              input#correo.form-control(type='text', placeholder='Ingrese correo')
             .mb-3
               label.form-label(for='Contraseña') Contraseña
-              textarea#contrasena.form-control(placeholder='Ingrese la contraseña', autofocus='', rows='3')
+              input#contrasena.form-control(type='text', placeholder='contraseña')
             .d-grid.gap-2
               a.btn.btn-outline-success(href='/signup', role='button') Crear Cuenta 
               a.btn.btn-outline-danger(href='/signin', role='button') Ya tengo cuenta
