@@ -1,3 +1,7 @@
+import security from "../security/hasheo.js"
+import Joi from "joi"
+import JoiEmailExtensions from 'joi-email-extensions'
+
 //Pagina Inicio
 const home = async (req, res) => {
   if (req.session.user && req.session.in) {
@@ -25,20 +29,60 @@ const signup = async (req, res) => {
   }
 }
 
-/*esta es la funcion del POST para registrar un usuario
-aqui recibira los datos que se escribieron en el formulario
-estos datos estaran en req.body, si los datos son correctos
-haga el registro en la bd
-*/
 const createUser = async (req, res) => {
-  res.redirect('/signin')
+  const errores = []
+  //verificamos que los datos esten bien
+  const JoiC = Joi.extend([JoiEmailExtensions])
+  const datos = JoiC.object({
+    nombre: JoiC.string().required(),
+    correo: JoiC.string().email().domains(['aragon.mx']).required(),
+    pass: JoiC.string().required()
+  })
+  try {
+    const datosC = await datos.validateAsync(req.body)
+  } catch (error) {
+    errores.push({mensaje: error.details[0].type})
+  }
+  //Validamos que el correo exista en la BD
+  const existe = await Usuario.findOne({
+    where: {
+      correo: datosC.correo
+    }
+  })
+  if (existe !== null) {
+    errores.push({mensaje: 'Email already exists'})
+    res.set('Content-Type', 'text/html')
+    res.set('Existe', existe)
+  }
+  //Si todo esta bien creamos el usuario
+  if (errores.length === 0) {
+    const id = 'user'
+    const {nombre, correo, pass} = req.body
+    const password = security.hash(pass)
+    try {
+      const usuario = await Usuario.create({
+        id,
+        nombre,
+        correo,
+        password
+      }, { fields: ['id', 'nombre', 'correo', 'contrasena'] })
+      res.render('signin', {sesion: 'Account created, Sign in'})
+    } catch (error) {
+      res.render('signup', {mensaje: 'A error has ocurred'})
+      console.log(error)
+    }
+  } else {
+    res.render('signup', errores)
+  }
 }
+
 
 /*Funcion para iniciar sesion
 traer todos los campos que ingreso el usuario (correo y contraseña)
 y verificar si existen en la bd*/
 const iniSesion  = async (req, res) => {
-  res.redirect('/signin')
+  console.log(JSON.stringify(req.body))
+  res.render('signin', {correo:req.body.nombre, pass:req.body.pass})
 }
 
 //Simulacion Inicio de sesion
