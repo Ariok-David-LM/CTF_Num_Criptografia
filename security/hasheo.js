@@ -1,3 +1,4 @@
+import crypto from 'crypto'
 const security = {
   hash: (pass) => {
     const hash = crypto.createHash('sha512').update(pass).digest('hex');

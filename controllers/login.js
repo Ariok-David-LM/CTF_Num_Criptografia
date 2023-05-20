@@ -1,6 +1,6 @@
 import security from "../security/hasheo.js"
 import Joi from "joi"
-import JoiEmailExtensions from 'joi-email-extensions'
+import Usuarios from "../db/simuladorBD(temp).js"
 
 //Pagina Inicio
 const home = async (req, res) => {
@@ -32,35 +32,35 @@ const signup = async (req, res) => {
 const createUser = async (req, res) => {
   const errores = []
   //verificamos que los datos esten bien
-  const JoiC = Joi.extend([JoiEmailExtensions])
-  const datos = JoiC.object({
-    nombre: JoiC.string().required(),
-    correo: JoiC.string().email().domains(['aragon.mx']).required(),
-    pass: JoiC.string().required()
+  const datos = Joi.object({
+    nombre: Joi.string().required(),
+    correo: Joi.string().email({ tlds: { allow: false } }).regex(/^[a-zA-Z0-9._%+-]+@aragon\.mx$/).required() ,
+    pass: Joi.string().required()
   })
   try {
     const datosC = await datos.validateAsync(req.body)
   } catch (error) {
-    errores.push({mensaje: error.details[0].type})
+    if (error.details[0].type === 'string.empty') {
+      errores.push({mensaje: "Some fields are empty"})
+    } else if (error.details[0].type === 'any.custom' || error.details[0].type === 'string.pattern.base') {
+      errores.push({mensaje: "The email doesn´t have the aragon.mx domain"})
+    }
   }
   //Validamos que el correo exista en la BD
-  const existe = await Usuario.findOne({
-    where: {
-      correo: datosC.correo
-    }
-  })
+  const existe = Usuarios.findOne()
   if (existe !== null) {
     errores.push({mensaje: 'Email already exists'})
     res.set('Content-Type', 'text/html')
-    res.set('Existe', existe)
+    res.set('email-data', JSON.stringify(existe))
   }
+  const id = 'user'
+  const {nombre, correo, pass} = req.body
+  const password = security.hash(pass)
   //Si todo esta bien creamos el usuario
   if (errores.length === 0) {
-    const id = 'user'
-    const {nombre, correo, pass} = req.body
-    const password = security.hash(pass)
+    /*
     try {
-      const usuario = await Usuario.create({
+      const usuario = await Usuarios.create({
         id,
         nombre,
         correo,
@@ -70,9 +70,9 @@ const createUser = async (req, res) => {
     } catch (error) {
       res.render('signup', {mensaje: 'A error has ocurred'})
       console.log(error)
-    }
+    }*/
   } else {
-    res.render('signup', errores)
+    res.render('signup', {nombre, correo, pass, errores})
   }
 }
 
