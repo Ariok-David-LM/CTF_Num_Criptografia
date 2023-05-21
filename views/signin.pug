@@ -31,10 +31,19 @@ html(lang='en')
     link(href='signin.css', rel='stylesheet')
   body.text-center
     main.form-signin
+      if errors
+        each men in errors 
+          .alert.alert-dismissible.alert-secondary
+            button.btn-close(type='button' data-bs-dismiss='alert')
+            strong=men.mensaje
+      if sesion 
+          .alert.alert-dismissible.alert-secondary
+            button.btn-close(type='button' data-bs-dismiss='alert')
+            strong=sesion 
       form(action="/signin" method="POST")
         h1.h3.mb-3.fw-normal Please sign in
         .form-floating
-          input#floatingInput.form-control(type='email', placeholder='name@example.com', name='nombre', value=correo)
+          input#floatingInput.form-control(type='email', placeholder='name@example.com', name='nombre', value=nombre)
           label(for='floatingInput') Email address
         .form-floating
           input#floatingPassword.form-control(type='password', placeholder='Password', name='pass', value=pass)

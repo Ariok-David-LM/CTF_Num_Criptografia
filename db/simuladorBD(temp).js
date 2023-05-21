@@ -10,7 +10,7 @@ const Usuarios = {
     ];
   },
   findOne: () => {
-    return {id:'admin', nombre:'Oscar', correo:'oscar@example.com', contrasena:'secreto123'}
+    return  {id:'admin', nombre:'Oscar', correo:'oscar@example.com', contrasena:'42d0ea697109af4149b88017f59e2d11309cb80f4a98bc7b848349c13e962fcc83aae6e0e467bc7d7d48c640251291f7136e18c8d4750f5df60255b6a964961c'}
   }
 }
 export default Usuarios

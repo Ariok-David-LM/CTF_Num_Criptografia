@@ -7,6 +7,9 @@ const security = {
   verificar: (pass, hash) => {
     const inputHash = crypto.createHash('sha512').update(pass).digest('hex');
     return inputHash === hash;
+  },
+  bandera: () => {
+    return 'Flag{3num3r4c10nYCr1pt0gr4f14_2023}'
   }
 }
 export default security

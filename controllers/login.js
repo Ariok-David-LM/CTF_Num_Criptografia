@@ -4,8 +4,12 @@ import Usuarios from "../db/simuladorBD(temp).js"
 
 //Pagina Inicio
 const home = async (req, res) => {
-  if (req.session.user && req.session.in) {
-    res.render('home')
+  if (req.session.user) {
+    let extra = {session: {user: `Hi ${req.session.user} you are USER`, bandera: `You don't have a flag.`}}
+    if (req.session.bandera) {
+      extra = {session: {bandera: `Your flag is: ${req.session.bandera}`, user: `Hi ${req.session.user} you are ADMIN`}}
+    }
+    res.render('home', extra)
   } else {
     res.redirect('/signin')
   }
@@ -13,7 +17,7 @@ const home = async (req, res) => {
 
 //Sign In
 const signin = async (req, res) => {
-  if (req.session.user && req.session.in) {
+  if (req.session.user) {
     res.redirect('/signin')
   } else {
     res.render('signin')
@@ -22,7 +26,7 @@ const signin = async (req, res) => {
 
 //Sign Up
 const signup = async (req, res) => {
-  if (req.session.user && req.session.in) {
+  if (req.session.user) {
     res.redirect('/')
   } else {
     res.render('signup')
@@ -71,18 +75,48 @@ const createUser = async (req, res) => {
       res.render('signup', {mensaje: 'A error has ocurred'})
       console.log(error)
     }*/
+    res.render('signin', {sesion: 'Account created, Sign in'})
   } else {
     res.render('signup', {nombre, correo, pass, errores})
   }
 }
 
-
-/*Funcion para iniciar sesion
-traer todos los campos que ingreso el usuario (correo y contraseña)
-y verificar si existen en la bd*/
 const iniSesion  = async (req, res) => {
-  console.log(JSON.stringify(req.body))
-  res.render('signin', {correo:req.body.nombre, pass:req.body.pass})
+  const errors = []
+   //verificamos que los datos esten bien
+  const dates = Joi.object({
+    nombre: Joi.string().email({ tlds: { allow: false } }).regex(/^[a-zA-Z0-9._%+-]+@aragon\.mx$/).required() ,
+    pass: Joi.string().required()
+  })
+  try {
+    const datesC = await dates.validateAsync(req.body)
+  } catch (error) {
+    if (error.details[0].type === 'string.empty') {
+      errors.push({mensaje: "Some fields are empty"})
+    } else if (error.details[0].type === 'any.custom' || error.details[0].type === 'string.pattern.base') {
+      errors.push({mensaje: "The email doesn´t have the aragon.mx domain"})
+    }
+  }
+  //vemos los usuarios en nuestra base de datos
+  const exist = Usuarios.findOne()
+  if (exist !== null) {
+    if (security.verificar(req.body.pass, exist.contrasena)) {
+      req.session.user = exist.nombre
+      if (exist.id === 'admin') {
+        req.session.bandera = security.bandera()
+      }
+    } else {
+      errors.push({mensaje: 'Incorrect username or password'})
+    }
+  } else {
+    errors.push({mensaje: 'Incorrect username or password'})
+  }
+  if (errors.length === 0) {
+    res.redirect('/')
+  } else {
+    const {nombre, pass} = req.body
+    res.render('signin', {nombre, pass, errors})
+  }
 }
 
 //Simulacion Inicio de sesion
