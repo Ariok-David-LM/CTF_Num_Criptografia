@@ -1,11 +1,11 @@
 import crypto from 'crypto'
 const security = {
   hash: (pass) => {
-    const hash = crypto.createHash('sha512').update(pass).digest('hex');
+    const hash = crypto.createHash('md5').update(pass).digest('hex');
     return hash;
   },
   verificar: (pass, hash) => {
-    const inputHash = crypto.createHash('sha512').update(pass).digest('hex');
+    const inputHash = crypto.createHash('md5').update(pass).digest('hex');
     return inputHash === hash;
   },
   bandera: () => {
