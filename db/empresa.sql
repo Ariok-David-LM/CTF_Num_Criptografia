@@ -2,9 +2,9 @@ DROP database if exists empresa;
 CREATE database empresa;
 USE empresa;
 
-CREATE TABLE usuarios (id VARCHAR(50), nombre VARCHAR(50), correo VARCHAR(50), contrasena VARCHAR(128));
+CREATE TABLE usuarios (ident VARCHAR(50), nombre VARCHAR(50), correo VARCHAR(50), contrasena VARCHAR(128));
 
-INSERT INTO usuarios (id, nombre, correo, contrasena) VALUES
+INSERT INTO usuarios (ident, nombre, correo, contrasena) VALUES
     ('admin', 'Oscar', 'oscar@aragon.mx', '42d0ea697109af4149b88017f59e2d11309cb80f4a98bc7b848349c13e962fcc83aae6e0e467bc7d7d48c640251291f7136e18c8d4750f5df60255b6a964961c'), /*secreto123*/
     ('admin', 'Ariok', 'ariok@aragon.mx', '9517739e49de0a507feaf764331c616eafc8d6a6967ec0fadd20bf35adb3d5daadb348a27f6ab7f8ad3ba2ea5de66e37f9cc031cd83b94c2e231c0b894234677'),/*contrasena123*/
     ('admin', 'Josseline', 'josseline@aragon.mx', 'ac6aa533936ec8a8edc187cc6ce4b5a91cf8b716ceef5a40c2e17a5c88584343a9dbd3e0d9d9385071acd1ef20bda5cb418e6d96355b120a7637eb2ca9f4c2c9'),/*clave123*/

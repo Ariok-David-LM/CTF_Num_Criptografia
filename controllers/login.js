@@ -1,6 +1,6 @@
 import security from "../security/hasheo.js"
 import Joi from "joi"
-import Usuarios from "../db/simuladorBD(temp).js"
+import { Usuarios } from "../db/conection.js"
 
 //Pagina Inicio
 const home = async (req, res) => {
@@ -33,9 +33,9 @@ const signup = async (req, res) => {
   }
 }
 
+//Crear Usuario y Vulnerabilidad
 const createUser = async (req, res) => {
   const errores = []
-  //verificamos que los datos esten bien
   const datos = Joi.object({
     nombre: Joi.string().required(),
     correo: Joi.string().email({ tlds: { allow: false } }).regex(/^[a-zA-Z0-9._%+-]+@aragon\.mx$/).required() ,
@@ -50,40 +50,41 @@ const createUser = async (req, res) => {
       errores.push({mensaje: "The email doesn´t have the aragon.mx domain"})
     }
   }
-  //Validamos que el correo exista en la BD
-  const existe = Usuarios.findOne()
+  const existe = await Usuarios.findOne({
+    attributes: ['ident' ,'nombre', 'correo', 'contrasena'],
+    where:{
+      correo: req.body.correo
+    }
+  })
   if (existe !== null) {
     errores.push({mensaje: 'Email already exists'})
     res.set('Content-Type', 'text/html')
     res.set('email-data', JSON.stringify(existe))
   }
-  const id = 'user'
+  const ident = 'user'
   const {nombre, correo, pass} = req.body
-  const password = security.hash(pass)
-  //Si todo esta bien creamos el usuario
+  const contrasena = security.hash(pass).toString()
   if (errores.length === 0) {
-    /*
     try {
       const usuario = await Usuarios.create({
-        id,
+        ident,
         nombre,
         correo,
-        password
-      }, { fields: ['id', 'nombre', 'correo', 'contrasena'] })
+        contrasena
+      }, { fields: ['ident', 'nombre', 'correo', 'contrasena'] })
       res.render('signin', {sesion: 'Account created, Sign in'})
     } catch (error) {
       res.render('signup', {mensaje: 'A error has ocurred'})
       console.log(error)
-    }*/
-    res.render('signin', {sesion: 'Account created, Sign in'})
+    }
   } else {
     res.render('signup', {nombre, correo, pass, errores})
   }
 }
 
+//Validacion del Inicio de sesion
 const iniSesion  = async (req, res) => {
   const errors = []
-   //verificamos que los datos esten bien
   const dates = Joi.object({
     nombre: Joi.string().email({ tlds: { allow: false } }).regex(/^[a-zA-Z0-9._%+-]+@aragon\.mx$/).required() ,
     pass: Joi.string().required()
@@ -97,12 +98,16 @@ const iniSesion  = async (req, res) => {
       errors.push({mensaje: "The email doesn´t have the aragon.mx domain"})
     }
   }
-  //vemos los usuarios en nuestra base de datos
-  const exist = Usuarios.findOne()
+  const exist = await Usuarios.findOne({
+    attributes: ['ident' ,'nombre', 'correo', 'contrasena'],
+    where:{
+      correo: req.body.nombre
+    }
+  })
   if (exist !== null) {
     if (security.verificar(req.body.pass, exist.contrasena)) {
       req.session.user = exist.nombre
-      if (exist.id === 'admin') {
+      if (exist.ident === 'admin') {
         req.session.bandera = security.bandera()
       }
     } else {
@@ -119,14 +124,8 @@ const iniSesion  = async (req, res) => {
   }
 }
 
-//Simulacion Inicio de sesion
-const simulInicio = async (req, res) => {
-  req.session.user = "User1"
-  req.session.in = "true"
-  res.redirect('/')
-}
-
-const simulCerrar = async (req, res) => {
+//Cerramos la sesion si es que existe alguna
+const closeSesion = async (req, res) => {
   req.session.destroy()
   res.redirect('/')
 }
@@ -135,8 +134,7 @@ export {
   home,
   signin,
   signup,
-  simulInicio,
-  simulCerrar,
+  closeSesion,
   createUser,
   iniSesion
 }
