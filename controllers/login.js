@@ -111,9 +111,11 @@ const iniSesion  = async (req, res) => {
         req.session.bandera = security.bandera()
       }
     } else {
+      res.status(401)
       errors.push({mensaje: 'Incorrect username or password'})
     }
   } else {
+    res.status(401)
     errors.push({mensaje: 'Incorrect username or password'})
   }
   if (errors.length === 0) {
