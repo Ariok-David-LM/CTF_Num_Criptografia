@@ -30,22 +30,15 @@ html(lang='en')
   body.bg-light
     nav.navbar.navbar-expand-lg.fixed-top.navbar-dark.bg-dark(aria-label='Main navigation')
       .container-fluid
-        a.navbar-brand(href='#') Offcanvas navbar
+        a.navbar-brand(href='#') Empresa patito
         button#navbarSideCollapse.navbar-toggler.p-0.border-0(type='button', aria-label='Toggle navigation')
           span.navbar-toggler-icon
         #navbarsExampleDefault.navbar-collapse.offcanvas-collapse
           ul.navbar-nav.me-auto.mb-2.mb-lg-0
             li.nav-item
-              a.nav-link.active(aria-current='page', href='#') Dashboard
-            li.nav-item
-              a.nav-link(href='#') Notifications
-            li.nav-item
-              a.nav-link(href='#') Profile
-            li.nav-item
-              a.nav-link(href='#') Switch account
+             
             li.nav-item.dropdown
-              a#dropdown01.nav-link.dropdown-toggle(href='#', data-bs-toggle='dropdown', aria-expanded='false') Settings
-              ul.dropdown-menu(aria-labelledby='dropdown01')
+             
                 li
                   a.dropdown-item(href='#') Action
                 li
@@ -53,20 +46,11 @@ html(lang='en')
                 li
                   a.dropdown-item(href='#') Something else here
           form.d-flex
-            input.form-control.me-2(type='search', placeholder='Search', aria-label='Search')
-            button.btn.btn-outline-success(type='submit') Search
     .nav-scroller.bg-body.shadow-sm
       nav.nav.nav-underline(aria-label='Secondary navigation')
         a.nav-link.active(aria-current='page', href='#') Dashboard
         a.nav-link(href='#')
-          | Friends
-          span.badge.bg-light.text-dark.rounded-pill.align-text-bottom 27
-        a.nav-link(href='#') Explore
-        a.nav-link(href='#') Suggestions
-        a.nav-link(href='#') Link
-        a.nav-link(href='#') Link
-        a.nav-link(href='#') Link
-        a.nav-link(href='#') Link
+          
         a.nav-link(href='/cerrarSesion') Cerrar Sesion
     main.container
       .d-flex.align-items-center.p-3.my-3.text-white.bg-purple.rounded.shadow-sm
@@ -74,36 +58,36 @@ html(lang='en')
           h1.h6.mb-0.text-white.lh-1=session.user
           if session.bandera
             small=session.bandera 
+    if mostrarElementos
       .my-3.p-3.bg-body.rounded.shadow-sm
-        h6.border-bottom.pb-2.mb-0 Recent updates
-        .d-flex.text-muted.pt-3
+        h6.border-bottom.pb-2.mb-0 Secretos 
+        .d-flex.text-muted.pt-3 
           svg.bd-placeholder-img.flex-shrink-0.me-2.rounded(width='32', height='32', xmlns='http://www.w3.org/2000/svg', role='img', aria-label='Placeholder: 32x32', preserveAspectRatio='xMidYMid slice', focusable='false')
             title Placeholder
             rect(width='100%', height='100%', fill='#007bff')
             text(x='50%', y='50%', fill='#007bff', dy='.3em') 32x32
           p.pb-3.mb-0.small.lh-sm.border-bottom
-            strong.d-block.text-gray-dark @username
-                  Some representative placeholder content, with some information about this user. Imagine this being some sort of status update, perhaps?
+            strong.d-block.text-gray-dark @Oscar:  
+                  Some Esta es informacion muy confidencial a la que solo yo Oscar Daniel Bedolla Hernandez debo tener acceso.
         .d-flex.text-muted.pt-3
           svg.bd-placeholder-img.flex-shrink-0.me-2.rounded(width='32', height='32', xmlns='http://www.w3.org/2000/svg', role='img', aria-label='Placeholder: 32x32', preserveAspectRatio='xMidYMid slice', focusable='false')
             title Placeholder
             rect(width='100%', height='100%', fill='#e83e8c')
             text(x='50%', y='50%', fill='#e83e8c', dy='.3em') 32x32
           p.pb-3.mb-0.small.lh-sm.border-bottom
-            strong.d-block.text-gray-dark @username
-                  Some more representative placeholder content, related to this other user. Another status update, perhaps.
+            strong.d-block.text-gray-dark @Oscar:  
+                  Some Mi Gato se llama Charly
         .d-flex.text-muted.pt-3
           svg.bd-placeholder-img.flex-shrink-0.me-2.rounded(width='32', height='32', xmlns='http://www.w3.org/2000/svg', role='img', aria-label='Placeholder: 32x32', preserveAspectRatio='xMidYMid slice', focusable='false')
             title Placeholder
             rect(width='100%', height='100%', fill='#6f42c1')
             text(x='50%', y='50%', fill='#6f42c1', dy='.3em') 32x32
           p.pb-3.mb-0.small.lh-sm.border-bottom
-            strong.d-block.text-gray-dark @username
-                  This user also gets some representative placeholder content. Maybe they did something interesting, and you really want to highlight this in the recent updates.
+            strong.d-block.text-gray-dark @Oscar:  
+                  This Tengo codigos de lanzamiento nuclear pero mi mamá no me deja usarlos
         small.d-block.text-end.mt-3
-          a(href='#') All updates
       .my-3.p-3.bg-body.rounded.shadow-sm
-        h6.border-bottom.pb-2.mb-0 Suggestions
+        h6.border-bottom.pb-2.mb-0 Planes malvados
         .d-flex.text-muted.pt-3
           svg.bd-placeholder-img.flex-shrink-0.me-2.rounded(width='32', height='32', xmlns='http://www.w3.org/2000/svg', role='img', aria-label='Placeholder: 32x32', preserveAspectRatio='xMidYMid slice', focusable='false')
             title Placeholder
@@ -111,9 +95,8 @@ html(lang='en')
             text(x='50%', y='50%', fill='#007bff', dy='.3em') 32x32
           .pb-3.mb-0.small.lh-sm.border-bottom.w-100
             .d-flex.justify-content-between
-              strong.text-gray-dark Full Name
-              a(href='#') Follow
-            span.d-block @username
+              strong.text-gray-dark Comer una sandia
+            span.d-block  Dicen que comer sandia de noche cae mal, asi que algo malvado a de tener.
         .d-flex.text-muted.pt-3
           svg.bd-placeholder-img.flex-shrink-0.me-2.rounded(width='32', height='32', xmlns='http://www.w3.org/2000/svg', role='img', aria-label='Placeholder: 32x32', preserveAspectRatio='xMidYMid slice', focusable='false')
             title Placeholder
@@ -121,9 +104,8 @@ html(lang='en')
             text(x='50%', y='50%', fill='#007bff', dy='.3em') 32x32
           .pb-3.mb-0.small.lh-sm.border-bottom.w-100
             .d-flex.justify-content-between
-              strong.text-gray-dark Full Name
-              a(href='#') Follow
-            span.d-block @username
+              strong.text-gray-dark Sabotear los CTF's de los demas.
+            span.d-block Arruinar los trabajos de los demas para que solo yo tenga 10.
         .d-flex.text-muted.pt-3
           svg.bd-placeholder-img.flex-shrink-0.me-2.rounded(width='32', height='32', xmlns='http://www.w3.org/2000/svg', role='img', aria-label='Placeholder: 32x32', preserveAspectRatio='xMidYMid slice', focusable='false')
             title Placeholder
@@ -131,11 +113,9 @@ html(lang='en')
             text(x='50%', y='50%', fill='#007bff', dy='.3em') 32x32
           .pb-3.mb-0.small.lh-sm.border-bottom.w-100
             .d-flex.justify-content-between
-              strong.text-gray-dark Full Name
-              a(href='#') Follow
-            span.d-block @username
+              strong.text-gray-dark Pensar en un nombre de villano.
+            span.d-block Oscar no suena muy villanesco.
         small.d-block.text-end.mt-3
-          a(href='#') All suggestions
     script(src='../assets/dist/js/bootstrap.bundle.min.js')
     script(src='/js/offcanvas.js')
     script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js', integrity='sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe', crossorigin='anonymous')

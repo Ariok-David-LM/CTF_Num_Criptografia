@@ -9,6 +9,10 @@ const home = async (req, res) => {
     if (req.session.bandera) {
       extra = {session: {bandera: `Your flag is: ${req.session.bandera}`, user: `Hi ${req.session.user} you are ADMIN`}}
     }
+
+     // Agrega una propiedad extra al objeto extra
+     extra.mostrarElementos = req.session.bandera;
+
     res.render('home', extra)
   } else {
     res.redirect('/signin')
