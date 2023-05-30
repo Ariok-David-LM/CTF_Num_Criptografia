@@ -30,7 +30,7 @@ html(lang='en')
   body.bg-light
     nav.navbar.navbar-expand-lg.fixed-top.navbar-dark.bg-dark(aria-label='Main navigation')
       .container-fluid
-        a.navbar-brand(href='#') Empresa patito
+        .navbar-brand(href='#') Empresa patito
         button#navbarSideCollapse.navbar-toggler.p-0.border-0(type='button', aria-label='Toggle navigation')
           span.navbar-toggler-icon
         #navbarsExampleDefault.navbar-collapse.offcanvas-collapse
@@ -48,9 +48,7 @@ html(lang='en')
           form.d-flex
     .nav-scroller.bg-body.shadow-sm
       nav.nav.nav-underline(aria-label='Secondary navigation')
-        a.nav-link.active(aria-current='page', href='#') Dashboard
-        a.nav-link(href='#')
-          
+        .nav-link.active(aria-current='page', href='#') Dashboard
         a.nav-link(href='/cerrarSesion') Cerrar Sesion
     main.container
       .d-flex.align-items-center.p-3.my-3.text-white.bg-purple.rounded.shadow-sm
